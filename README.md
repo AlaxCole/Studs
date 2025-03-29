@@ -2,8 +2,8 @@
 
 ## Project Overview
 This project is a simple API with two endpoints:
-- **/students:** Returns a list of students.
-- **/subjects:** Returns subjects for the Software Engineering program organized by academic year.
+- /students: Returns a list of students.
+- /subjects: Returns subjects for the Software Engineering program organized by academic year.
 
 ## Setup Instructions
 1. Clone the repository:
@@ -18,6 +18,6 @@ This project is a simple API with two endpoints:
 - `GET /subjects` - Returns JSON object of subjects by year.
 
 ## Deployment
-The API has been deployed on an AWS Ubuntu server. Access it at: [http://your-aws-instance-url:5000](http://your-aws-instance-url:5000)
+The API has been deployed on an AWS Ubuntu server. Access it at: [http://13.61.9.123:5000](http://13.61.9.123:5000)
 
 
