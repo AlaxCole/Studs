@@ -15,7 +15,7 @@ e_status=$((e_status|1))
 mem=$(free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }')
 e_status=$((e_status|2))
 
-disk=$(df -h / | awk 'NR==2{printf "%s/%s (%s)", $3,$2,$5}')
+disk=$(df / | awk 'NR==2 {gsub(/%/, "",$5); print $5}')
 e_status=$((e_status|4))
 
 # Web server status (Nginx)
@@ -39,8 +39,10 @@ log "CPU: $cpu | MEM: $mem | DISK: $disk | NGINX: $server_status | /students: $s
 e_status=$((e_status|32))
 
 # Warnings
-(( ${disk%\(*} < 10 )) && log "WARNING: Disk usage above 90%!"
-e_status=$((e_status|64))
+if (( disk > 90 )): then
+ log "WARNING: Disk usage above 90%! ($disk%)"
+ e_status=$((e_status|64))
+fi
 
 [[ "$server_status" != "OK" ]] && log "WARNING: Nginx is down" 
 e_status=$((e_status|128))
@@ -48,11 +50,11 @@ e_status=$((e_status|128))
 if [[ "$students" != "OK" && "$subjects" != "OK" ]]
 then
     log "WARNING: API endpoint failure"
+    e_status=$((e_status|256))
 else
    [[ "$students" != "OK" ]] && log "WARNING: student endpoint is down" || [[ "$subjects" != "OK" ]] && log "WARNING: subject endpoint is down"
+   e_status=$((e_status|256))
 fi
-e_status=$((e_status|256))
-
 
 exit $e_status
 
