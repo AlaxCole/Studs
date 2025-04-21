@@ -50,12 +50,14 @@ Cons: Grows bigger each time until next full backup
 ```cron
 # Run health_check every 6h
 0 */6 * * * /var/www/Studs/bash_scripts/health_check.sh
+
 # Run backup_api daily at 2AM
 0 2 * * * /var/www/Studs/bash_scripts/backup_api.sh
-# Run update_server every 3 days at 3AM
-0 3 */3 * * /var/www/Studs/bash_scripts/update_server.sh
+
+# Run update_server every 3 days at 3AM (Take it out of the repo directory, for safety)
+0 3 */3 * * /home/ubuntu/update_server.sh
 
 ## Deployment
-The API has been deployed on an AWS Ubuntu server. Access it at: [https://13.61.9.123](https://13.61.9.123)
+The API has been deployed on an AWS Ubuntu server. Access it at: [http://13.61.9.123](http://13.61.9.123)
 
 

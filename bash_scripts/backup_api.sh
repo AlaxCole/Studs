@@ -6,17 +6,14 @@ bkdir="/home/ubuntu/backups"
 #exit codes
 state=0
 
-#File Creation
-if [ ! -f $bkdir ]
-then
-    mkdir -p "$bkdir"
-    state=$((state|1))
-fi
+mkdir -p "$bkdir"
+state=$((state|1))
+
 
 # Project backup
-prj="api_backup_$(date +%F).tar.gz"
-tar -czf "$bkdir/$orj" /var/www/Studs && echo "[$ts] Project backup: $prj OK" >> "$log" \
-  || echo "[$ts] Project backup failed" >> "$log"
+tar -czf /home/ubuntu/backups/api_backup_$(date +%F).tar.gz \
+    -C /var/www/Studs . && echo "[$ts] Project backup: $prj OK" >> "$log" \
+    || echo "[$ts] Project backup failed" >> "$log"
 state=$((state|2))
 
 # DB backup

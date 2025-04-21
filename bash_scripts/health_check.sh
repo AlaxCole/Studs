@@ -2,6 +2,8 @@
 log="/var/log/server_health.log"
 ts="$(date '+%F %T')"
 
+# Assuming that the path to the log file exists and appropriate permissions have been set
+S
 # exit_code
 e_status=0
 
@@ -39,7 +41,7 @@ log "CPU: $cpu | MEM: $mem | DISK: $disk | NGINX: $server_status | /students: $s
 e_status=$((e_status|32))
 
 # Warnings
-if (( disk > 90 )): then
+if (( disk > 90 )); then
  log "WARNING: Disk usage above 90%! ($disk%)"
  e_status=$((e_status|64))
 fi
