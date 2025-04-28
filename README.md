@@ -45,11 +45,11 @@ If you change dependencies or your Dockerfile, you may need to bypass the cache:
     sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" \
   -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
-
+```
 2. Start the environment:
 ```bash
    docker-compose up -d --build
-
+```
     -d runs containers in the background.
 
     --build ensures images are rebuilt if you’ve changed code or the Dockerfile.
@@ -57,23 +57,23 @@ If you change dependencies or your Dockerfile, you may need to bypass the cache:
 3. Check status:
 ```bash
    docker-compose ps
-
+```
 You should see both api and db services listed as “Up.”
 
 4. View real-time logs:
 ```bash
    docker-compose logs -f api
-
+```
 Replace 'api' with 'db' to see database logs.
 
 5. Stopping & removing containers:
 ```bash
    docker-compose down
-
+```
     To remove named volumes (e.g., reset your database):
 ```bash
    docker-compose down -v
-
+```
 6. Rebuild or scale a single service:
 ```bash
     # Rebuild only the API
@@ -81,7 +81,7 @@ Replace 'api' with 'db' to see database logs.
 
     # Run multiple API instances
     docker-compose up -d --scale api=3
-
+```
 ### 3. Troubleshooting Tips
 
 1. Permission denied while connecting to /var/run/docker.sock
@@ -89,36 +89,36 @@ Replace 'api' with 'db' to see database logs.
 ```bash
    sudo usermod -aG docker $USER
    newgrp docker
-
+```
 2. ImportError: No module named 'flask_sqlalchemy'
 → Make sure your requirements.txt lists Flask-SQLAlchemy and rebuild the image without cache:
 ```bash
    docker-compose build --no-cache api
-
+```
 3. Connection refused to Postgres at localhost:5432
 → In Compose, use the database service name as host. e.g.
 ```yaml
 environment:
   DATABASE_URL: postgres://myuser:mypass@db:5432/mydb
-
+```
 and in your app read DATABASE_URL from os.environ.
 
 4. Container exits immediately after up
 → Inspect its logs for the startup error:
 ```bash
    docker-compose logs api
-
+```
 5. Stale cache preventing changes from applying
 → Remove dangling images and prune build cache:
 ```bash
    docker system prune --all --volumes
-docker-compose up --build
-
+   docker-compose up --build
+```
 6. Data missing after down && up
 → Ensure your database volume is declared in docker-compose.yml under volumes: and not removed without -v. 
 
 ### The Docker url repository
-https://hub.docker.com/r/alaxcole/api
+https://hub.docker.com/repositories/alaxcole
 
 ## bash_scripts
 
