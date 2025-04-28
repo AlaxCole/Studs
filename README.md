@@ -57,6 +57,9 @@ Cons: Grows bigger each time until next full backup
 # Run update_server every 3 days at 3AM (Take it out of the repo directory, for safety)
 0 3 */3 * * /home/ubuntu/update_server.sh
 
+## The Docker url repository
+https://docker.io/alaxcole/api:latest
+
 ## Deployment
 The API has been deployed on an AWS Ubuntu server. Access it at: [http://13.61.9.123](http://13.61.9.123)
 

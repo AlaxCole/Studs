@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: a_cole
+      POSTGRES_PASSWORD: teachers10
+      POSTGRES_DB: deploy
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    image: api:latest
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgres://a_cole:teachers10@db:5432/deploy
+    depends_on:
+      - db
+
+volumes:
+  db_data:
