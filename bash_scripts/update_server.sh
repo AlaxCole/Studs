@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y && log "System packages upgraded" || log 
 
 # Pull latest code
 cd "$repo_DIR"
-if git pull origin main; then
+if git pull origin docker-setup; then
   log "Git pull OK"
   sudo systemctl restart myapp nginx
   log "Nginx  restarted"
